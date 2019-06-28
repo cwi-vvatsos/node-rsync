@@ -70,7 +70,8 @@ function Rsync(config) {
     // output callbacks
     this._outputHandlers = {
         stdout: null,
-        stderr: null
+        stderr: null,
+        merger: null
     };
 
     this._cwd = process.cwd();
@@ -478,6 +479,12 @@ Rsync.prototype.output = function(stdout, stderr) {
     return this;
 };
 
+Rsync.prototype.mergeOutputStreams = function(callback){
+    if (typeof(callback) === 'function') {
+        this._outputHandlers.merger = callback;
+    }
+}
+
 /**
  * Execute the rsync command.
  *
@@ -513,6 +520,9 @@ Rsync.prototype.execute = function(callback, stdoutHandler, stderrHandler) {
     }
     if (typeof(this._outputHandlers.stderr) === 'function') {
         cmdProc.stderr.on('data', this._outputHandlers.stderr);
+    }
+    if (typeof(this._outputHandlers.merger) === 'function') {
+        this._outputHandlers.merger(Proc.stdout, cmdProc.stderr);
     }
 
     // Wait for the command to finish
