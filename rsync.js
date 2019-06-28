@@ -522,7 +522,7 @@ Rsync.prototype.execute = function(callback, stdoutHandler, stderrHandler) {
         cmdProc.stderr.on('data', this._outputHandlers.stderr);
     }
     if (typeof(this._outputHandlers.merger) === 'function') {
-        this._outputHandlers.merger(Proc.stdout, cmdProc.stderr);
+        this._outputHandlers.merger(cmdProc.stdout, cmdProc.stderr);
     }
 
     // Wait for the command to finish
