@@ -510,7 +510,9 @@ Rsync.prototype.execute = function(callback, stdoutHandler, stderrHandler) {
                         { stdio: 'pipe', windowsVerbatimArguments: true, cwd: this._cwd, env: this._env });
     }
     else {
-        cmdProc = spawn(this._executableShell, ['-c', this.command()],
+      /*  cmdProc = spawn(this._executableShell, ['-c', this.command()],
+                        { stdio: 'pipe', cwd: this._cwd, env: this._env });*/
+        cmdProc = spawn(this.executable(), [...this.args()],
                         { stdio: 'pipe', cwd: this._cwd, env: this._env });
     }
 
