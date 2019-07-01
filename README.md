@@ -1,4 +1,6 @@
-# Rsync ![build status](https://travis-ci.org/mattijs/node-rsync.svg?branch=master)
+# Rsync 
+
+DO not USE this in production. It has been heavily modified to meet some of my needs.
 
 [![NPM](https://nodei.co/npm/rsync.png?downloads=true)](https://nodei.co/npm/rsync/)
 
